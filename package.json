@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "export": "next export",
-    "deploy": "npm run build && npm run export && aws s3 sync out/ s3://hallway-tesla-dashboard/"
+    "deploy": "npm run build && npm run export && aws s3 sync out/ s3://hallway-tesla-dashboard/ --acl public-read"
   },
   "keywords": [],
   "author": "",
