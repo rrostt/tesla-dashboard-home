@@ -29,7 +29,7 @@ const useCarState = () => {
         update()
             .then(() => setLoading(false))
 
-        const timeout = setInterval(update, 6000)
+        const timeout = setInterval(update, 60000)
         return () => clearInterval(timeout)
     }, [])
 
