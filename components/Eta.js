@@ -20,7 +20,7 @@ const useEta = ({lon, lat, home}) => {
 
         const timeout = setInterval(() => {
             updateEta()
-        }, 60000) // update ETA every 10 minutes when out and about
+        }, 6000) // update ETA every 1 minutes when out and about
 
         return () => clearInterval(timeout)
     }, [])
