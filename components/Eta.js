@@ -36,23 +36,10 @@ const Eta = ({lon,lat, home}) => {
     const minutes = s => pad(Math.floor(s/60)%60, 2, '0')
     const hours = s => Math.floor(s/3600)
 
-    return <div style={{
-        position: 'absolute',
-        width: '100%',
-        height: 105,
-        bottom: 0,
-        background: '#fff',
-        textAlign: 'center',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-    }}>
-        <div style={{
-        }}>
-            { eta < 0 && <>N/A</> }
-            { eta === 0 && <>Home!</> }
-            { eta > 0 && <>Home in {hours(eta)}:{minutes(eta)}</> }
-        </div>
+    return <div style={{ textAlign: 'center' }}>
+        { eta < 0 && <>N/A</> }
+        { eta === 0 && <>Home!</> }
+        { eta > 0 && <>Home in {hours(eta)}:{minutes(eta)}</> }
     </div>
 }
 
