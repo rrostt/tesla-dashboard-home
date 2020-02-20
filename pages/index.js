@@ -76,16 +76,31 @@ const useCarState = () => {
     }
 }
 
-const Index = () => {
-    const carState = useCarState()
+const useLocations = (deps = []) => {
     const [locations, setLocations] = useState([])
 
-    useEffect(() => {
+    const fetchLocations = () => {
         const since = Date.now() - 3600000
         fetch(`${API_URL}/locations?vin=${VIN}&since=${since}`)
             .then(response => response.json())
             .then(data => setLocations(data))
-    }, [])
+    }
+
+    useEffect(() => {
+        fetchLocations()
+    }, deps)
+
+    return locations
+}
+
+const Index = () => {
+    const carState = useCarState()
+    const locations = useLocations([
+        carState.state && carState.state.state.drive.longitude,
+        carState.state && carState.state.state.drive.latitude
+    ])
+
+    const filteredLocations = locations.filter(({ timestamp }) => timestamp > Date.now() - 3600000)
 
     return <div>
         <HomeContext.Provider value={{ info: myHome, isHome }}>
@@ -97,7 +112,7 @@ const Index = () => {
                     switchingClimate={carState.switchingClimate}
                     climateOn={carState.climateOn}
                     climateOff={carState.climateOff}/> : 
-                <NotHome state={carState.state} locations={locations} />}
+                <NotHome state={carState.state} locations={filteredLocations} />}
             </>}
         </HomeContext.Provider>
         <style jsx global>{`
