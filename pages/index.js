@@ -11,7 +11,7 @@ const myHome = {
     address: HOME_ADDRESS
 }
 
-const isHome = ({longitude, latitude}) => longitude.toFixed(4) === myHome.longitude.toFixed(4) && latitude.toFixed(4) === myHome.latitude.toFixed(4)
+import isHome from '../helpers/isHome'
 
 const useCarState = () => {
     const [carState, setCarState] = useState(null)
@@ -106,7 +106,7 @@ const Index = () => {
         <HomeContext.Provider value={{ info: myHome, isHome }}>
             {carState.loading && <>Loading</>}
             {carState.state && <>
-                {isHome({longitude: carState.state.state.drive.longitude, latitude: carState.state.state.drive.latitude}) ?
+                {isHome({longitude: carState.state.state.drive.longitude, latitude: carState.state.state.drive.latitude, home: myHome}) ?
                 <AtHome
                     state={carState.state}
                     switchingClimate={carState.switchingClimate}
